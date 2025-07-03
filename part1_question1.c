@@ -1,63 +1,58 @@
-//TRAVIS COFFINO SBU ID 115445347 at 12:31pm
-#include<stdio.h>
+//Travis Coffino
+#include <stdio.h>
 #include <stdlib.h>
-#define MAX 32
+#define NRROWS 4
+#define NRCOLS 4
 
-int main()
-{
-  char str[MAX];
-  int i=0;
-  char ch;
-  float dec;
-  FILE *inp_f;
-  FILE *out_p;
-  float sum=0;
-  float avg=0;
-  int n=0;
-  
-if((inp_f = fopen("test.txt","r"))== NULL){
-  printf("Error opening input file");
-  exit(1);
-}
+int main(){
+	FILE *fin;
+	float a[6][6], sum=0,sum2=0;
+	int i,j,m,n,row;
+	float temp;
+	// float a[NRROWS][NRCOLS];
+	if((fin=fopen("lab7test1.txt","r"))==NULL){
+		printf("File lab7test1.txt cannot be opened\n");
+		exit(1);
+	}
+	
+	for(i=0;i<5;i++){
+		for(j=0;j<5;j++){
+			fscanf(fin,"%f",&a[i][j]);
+		}
+	}
+	for(i=0;i<3;i++){
+		scanf("%d",&row);
+		for(j=0;j<5;j++){
+			sum+=a[row][j];
+		}
+	}
+	printf("%f\n",sum);
+	
+	
+	// -----------------------
+	
+	scanf("%d%d",&n,&m);
+	for(j=0;j<5;j++){
+		temp=a[n][j];
+		a[n][j]=a[m][j];
+		a[m][j]=a[n][j];
+	}
+	for(i=0;i<5;i++){
+		for(j=0;j<5;j++){
+			//fprintf(fout,"%f",a[i][j]);
+      printf("%f ",a[i][j]);
+		}
+		//fprintf(fout,"\n");
+    printf("\n");
+	}
 
-if((out_p = fopen("output.txt","w")) == NULL){
-  printf("Error writing to output file");
-  exit(1);
-}
+	// -----------------
 
-while((ch=fgetc(inp_f))!=EOF){
-  if((ch>='0'&&ch<='9')||ch=='-'||ch=='+'){
-    str[i]=ch;
-    i++;
-    while(((ch=fgetc(inp_f))!=EOF)&&((ch>='0'&&ch<='9')||(ch=='.'))){
-      str[i]=ch;
-      i++;
-
-      
-    }
-    for(int j = 0; j < i; j++){
-      printf("ch %d: %c\n", j, str[j]);
-    }
-    
-    str[i]='\0';
-    dec=atof(str);
-    sum=sum+dec;
-    
-    printf("%f",dec);
-    fprintf(out_p,"%f",dec);
-    
-  }
-  n++;
-  avg=sum/n;
-  i=0;
-  fprintf(out_p,";");
-  // fprintf(out_p,"\n%d\n",n);
-}
-fprintf(out_p,"\nsum: %f\n",sum);
-    fprintf(out_p,"avg: %f\n",avg);
-
-fclose(inp_f);
-fclose(out_p);
-
-  //your code here
+	for(i=0;i<5;i++){
+		for(j=i;j<5;j++){
+			printf("%f ",a[i][j]);
+			sum2=sum2+a[i][j];
+		}printf("\n");
+		
+	}printf("sum: %f",sum2);
 }
